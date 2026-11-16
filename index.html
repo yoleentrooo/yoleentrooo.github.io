@@ -65,12 +65,12 @@ footer small{display:block;font:800 14px var(--body);color:var(--muted);text-sha
   <section>
     <h2>Paso a paso</h2>
     <ol class="steps">
-      <li><div class="card"><b>Se sella el sorteo</b>Antes de publicar el video del lunes publicamos el sello del programa que sortea: un código que cambia por completo si alguien modifica una sola letra. Así se sabe que el sorteo no se tocó después de conocer a los jugadores.</div></li>
+      <li><div class="card"><b>Se sella el sorteo</b>Antes de publicar el video del lunes publicamos el sello del programa que sortea: un código que cambia por completo si alguien modifica una sola letra. Así se sabe que el sorteo no se tocó después de conocer a los jugadores. Junto con el sello publicamos un candado: el código de una clave secreta que se mezcla con el número.</div></li>
       <li><div class="card"><b>Una hora para comentar</b>El video sale el lunes a las 10:00 am y hay hasta las 11:00 am para comentar un solo personaje. Los comentarios que lleguen después ya no entran al sorteo. Quien comenta dos veces queda fuera. Los comentarios siguen ahí con su hora.</div></li>
-      <li><div class="card"><b>Se toma el número</b>Al cerrar, a las 11:00 am, se toma el total de seguidores de la cuenta, grabando la pantalla con el reloj a la vista. Ese número arranca el juego, y nadie puede saberlo antes de comentar.</div></li>
+      <li><div class="card"><b>Se toma el número</b>Al cerrar, a las 11:00 am, se toma el total de seguidores de la cuenta, grabando la pantalla con el reloj a la vista. Ese número, mezclado con la clave secreta, arranca el juego. Nadie puede saberlo antes de comentar.</div></li>
       <li><div class="card"><b>Se sortean los jugadores</b>Con ese número, el programa sortea un jugador por personaje entre todos los que lo escogieron. Si el sorteado no cumple los requisitos, entra el siguiente del mismo sorteo. Con los 10 jugadores ya definidos se crea la competencia.</div></li>
       <li><div class="card"><b>Se sortean los 10 lugares</b>Con el mismo número, el juego define de una sola vez en qué lugar queda cada jugador, del campeón al décimo. No hay segunda toma. Las carreras que ves en los videos representan ese resultado: se les puede cambiar el diseño, pero no quién gana.</div></li>
-      <li><div class="card"><b>Tú la puedes repetir</b>En el <a href="verificador.html">verificador</a> escribes el número de la competencia y sale el mismo resultado, las veces que quieras.</div></li>
+      <li><div class="card"><b>Tú la puedes repetir</b>En el <a href="verificador.html">verificador</a> escribes el número y la clave de la competencia y sale el mismo resultado, las veces que quieras. Los dos se publican cuando sale la final, para no arruinar la sorpresa.</div></li>
       <li><div class="card"><b>Se paga y se enseña</b>El premio se transfiere o se envía al ganador, y se publica el comprobante con los datos personales tapados.</div></li>
     </ol>
   </section>
@@ -95,6 +95,7 @@ footer small{display:block;font:800 14px var(--body);color:var(--muted);text-sha
       <div class="t"><span>Acta · Competencia 1 (ejemplo)</span></div>
       <div><span>Número</span><span>3105</span></div>
       <div><span>Tomado</span><span>lunes 11:00 am, con reloj en pantalla</span></div>
+      <div><span>Clave</span><span>se publica con la final</span></div>
       <div><span>Sello del sorteo</span><span>9f2c…a71e</span></div>
       <div><span>Jugadores</span><span>10, sorteados con el número</span></div>
       <div><span>Cuartos de final</span><span>pasan 6</span></div>
@@ -102,6 +103,7 @@ footer small{display:block;font:800 14px var(--body);color:var(--muted);text-sha
       <div><span>Final</span><span>1 campeón</span></div>
       <div><span>Corridas</span><span>1</span></div>
     </div>
+    <p class="card"><b style="color:var(--yellow)">Candado de la Competencia 1</b><br><span style="font:600 13px var(--mono);overflow-wrap:anywhere">8d0e2fecfa87cf0ff04b208ad0bd35ab035c6faf36cf8d4d6041a7212ed6116d</span><br>Publicado el lunes antes de cerrar los comentarios.</p>
     <p class="note">Si hay un error técnico, se corrige y se vuelve a correr con el mismo número. El cambio se anota en el acta y se avisa en el video.</p>
   </section>
 
@@ -110,8 +112,9 @@ footer small{display:block;font:800 14px var(--body);color:var(--muted);text-sha
     <div>
       <details><summary>¿El dueño de la cuenta puede escoger al ganador?</summary><p>No. El resultado sale del número público y del sorteo sellado. No puede cambiar ninguno de los dos sin que se note: el número está grabado y el sello dejaría de coincidir.</p></details>
       <details><summary>¿Por qué el número se toma después de la hora de comentarios?</summary><p>Para que nadie pueda calcular qué personaje le conviene antes de comentar. Cuando el número se conoce, ya nadie puede entrar ni cambiar su comentario.</p></details>
+      <details><summary>¿Por qué no puedo ver desde el lunes quién va a ganar?</summary><p>Porque se acabaría la sorpresa. El resultado queda definido el lunes a las 11:00 am, pero el número y la clave se publican hasta la final. El candado prueba que no se cambiaron: está publicado desde antes y solo coincide con esa clave.</p></details>
       <details><summary>¿Qué es el sello?</summary><p>Es una huella del programa, como la huella de un dedo. Dos programas distintos nunca dan la misma. Se publica antes de la competencia y cualquiera puede compararla después.</p></details>
-      <details><summary>¿Y si no confío en el video?</summary><p>No hace falta confiar. Abre el verificador y pon el número de la competencia. Si no sale lo mismo que en el video, tienes la prueba en la mano.</p></details>
+      <details><summary>¿Y si no confío en el video?</summary><p>No hace falta confiar. Cuando salga la final, abre el verificador y pon el número y la clave de la competencia. Si no sale lo mismo que en el video, tienes la prueba en la mano.</p></details>
       <details><summary>¿Las caídas y las salvadas favorecen a alguien?</summary><p>No. Las caídas y las salvadas son parte del espectáculo. Quién pasa y quién gana ya lo decidió el sorteo con el número público.</p></details>
     </div>
   </section>

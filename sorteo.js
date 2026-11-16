@@ -22,7 +22,10 @@
   // elim = monitos eliminados (el peor primero). Pasan los mejores lugares; el orden de llegada se baraja para no revelar al campeón.
   function reparto(numero,lug,out,elim){const m=[],pasan=baraja(lug.slice(0,out.length),rng32((numero^0x7F4A7C15)>>>0));
     out.forEach((s,i)=>m[s]=pasan[i]);elim.forEach((s,i)=>m[s]=lug[out.length+elim.length-1-i]);return m}
-  g.Sorteo={sorteo,elegibles,lugares,reparto};
+  // SEMILLA: número público (seguidores al cierre) + clave secreta cuyo candado (sha256) se publicó ANTES de conocer el número.
+  // Así nadie puede adelantar al campeón durante la semana, y nosotros no pudimos escoger la clave a conveniencia. Se revelan con la final.
+  function semilla(numero,clave){const t=numero+'|'+clave;let h=0x811c9dc5;for(let i=0;i<t.length;i++){h^=t.charCodeAt(i);h=Math.imul(h,0x01000193)}return h>>>0}
+  g.Sorteo={sorteo,elegibles,lugares,reparto,semilla};
   if(typeof module!=='undefined'){module.exports=g.Sorteo;
     if(require.main===module){const assert=require('assert'),P=['azul','rojo'],
       C=[{usuario:'a',personaje:'azul'},{usuario:'b',personaje:'azul'},{usuario:'c',personaje:'rojo'},{usuario:'b',personaje:'rojo'},{usuario:'d',personaje:'azul'},{usuario:'e',personaje:'verde'}];
@@ -33,5 +36,6 @@
       const g1=Array(10).fill(0);for(let s=0;s<20000;s++)g1[lugares(s,J)[0]]++;assert(g1.every(v=>Math.abs(v-2000)<220),g1.join());           // cualquiera puede ser campeón, parejo
       const out=[7,2,9,0,4,5],el=[3,8,1,6],m=reparto(3105,lg,out,el);assert.deepStrictEqual(m.slice().sort((a,b)=>a-b),J);
       assert.deepStrictEqual(out.map(s=>m[s]).sort(),lg.slice(0,6).sort());assert.strictEqual(m[el[0]],lg[9]);                              // pasan los 6 mejores; el peor monito es el último lugar
+      assert.strictEqual(semilla(3105,'abc'),semilla(3105,'abc'));assert.notStrictEqual(semilla(3105,'abc'),semilla(3106,'abc'));assert.notStrictEqual(semilla(3105,'abc'),semilla(3105,'abd'));
       console.log('sorteo OK',cnt,'campeones',g1.join())}}
 })(typeof window!=='undefined'?window:globalThis);

@@ -3,18 +3,21 @@
 <canvas id="c" width="1080" height="1920"></canvas>
 <script src="three.min.js"></script>
 <script src="carrera.js"></script>
+<script src="sorteo.js"></script>
 <script>
-// Prueba 1 "EL RECORRIDO" en video. El resultado lo calcula carrera.js; aquí solo se dibuja (y se exagera) lo que ya pasó.
+// Prueba 1 "EL RECORRIDO" en video. El resultado lo sortea sorteo.js con el número público; carrera.js solo anima una carrera y aquí se dibuja.
 const W=1080,H=1920,cv=document.getElementById('c'),ctx=cv.getContext('2d'),T3=THREE,FPS=30,{makeCarrera,DT,META,Z}=Carrera;
 const q=new URLSearchParams(location.search),SEED=+(q.get('n')||3105);
 const J=[['@lupita.mx','#2f7bff'],['@elcharly_77','#22b866'],['@karlitaa','#e5383b'],['@donbeto','#f5d90a'],['@sofi.rdz','#8e4ec6'],['@el_tono','#f76b15'],['@marifer_g','#ff7ab8'],['@chuy_ofi','#f2f4f7'],['@danyelita','#4a4a57'],['@rulo.mtz','#ffc21a']];
 const LUNES=false,PREMIO=q.get('premio')||'$50';if(LUNES)for(const j of J)j[1]='#9aa3b5';
 const INTRO=LUNES?0:4,LENTO=.3;
 const pre=makeCarrera(J.map((_,i)=>i),SEED);let tOver=0;while(!pre.done){pre.step();pre.ev.length=0;if(pre.over&&!tOver)tOver=pre.t}
+// El resultado NO sale de la carrera: los lugares se sortean con el número y cada jugador se acomoda en el monito que le toca.
+const LUG=Sorteo.lugares(SEED,J.map((_,i)=>i)),J0=J.slice();Sorteo.reparto(SEED,LUG,pre.out,pre.elim).forEach((p,s)=>J[s]=J0[p]);
 const tEnd=pre.endT,l0=tOver-1.1,l1=tOver+.35,vLento=(l1-l0)/LENTO;
 const simT=tv=>{const t=tv-INTRO;if(t<=0)return 0;if(t<l0)return t;if(t<l0+vLento)return l0+(t-l0)*LENTO;return l1+(t-l0-vLento)};
 const TOTAL=LUNES?TIEMPOS.T1:INTRO+l0+vLento+(tEnd-l1)+2.5;window.TOTAL_FRAMES=Math.round(TOTAL*FPS);window.EVENTOS=[];
-window.RESULTADO={numero:SEED,clasifican:pre.out.map(i=>J[i][0]),eliminados:pre.elim.map(i=>J[i][0]),duracion:TOTAL,sinCuenta:LUNES};
+window.RESULTADO={numero:SEED,lugares:LUG.map(p=>J0[p][0]),clasifican:pre.out.map(i=>J[i][0]),eliminados:pre.elim.map(i=>J[i][0]),duracion:TOTAL,sinCuenta:LUNES};
 const clamp=(v,a,b)=>Math.max(a,Math.min(b,v)),back=x=>{const c=1.70158;return 1+(c+1)*Math.pow(x-1,3)+c*Math.pow(x-1,2)},smooth=x=>x*x*(3-2*x);
 const hS=s=>s<Z.rampa.a?0:s>Z.rampa.b?(Z.rampa.b-Z.rampa.a)*.2:(s-Z.rampa.a)*.2,yM=(Z.rampa.b-Z.rampa.a)*.2;
 let r,sc,cam,sun,g,fPrev=-1,tiles=[],hams=[],ropes=[],logs=[],bolaPool=[],pl=[],cris=[],camS=4,camSpread=10,toasts=[],bursts=[],zona=null,zonaT=-9,shake=0,jefe,TV=0;

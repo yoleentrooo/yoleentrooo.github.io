@@ -1,0 +1,121 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self'; base-uri 'none'; form-action 'none'"><style>body{margin:0}img{max-width:100%}</style>
+<title>Cómo se decide el ganador</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Nunito:wght@600;800&display=swap">
+<style>
+/* Un solo look, el del juego: noche morada, neón cian/rosa, títulos de juguete. Pensado para celular. */
+:root{--bg:#0b0a24;--panel:rgba(24,19,64,.86);--fg:#f3f1ff;--muted:#b9b4e6;--cyan:#35e6ff;--pink:#ff4fd8;--yellow:#ffd23f;--orange:#ff8a1f;--line:rgba(125,112,255,.38);
+  --display:'Luckiest Guy',Impact,'Arial Black',sans-serif;--body:'Nunito',system-ui,sans-serif;--mono:ui-monospace,Menlo,Consolas,monospace;color-scheme:dark}
+body{background:var(--bg);background-image:radial-gradient(900px 500px at 50% 0,rgba(140,60,255,.35),transparent 70%),linear-gradient(rgba(53,230,255,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(255,79,216,.06) 1px,transparent 1px);background-size:auto,44px 44px,44px 44px;color:var(--fg);font:600 17px/1.6 var(--body)}
+.hero{position:relative;text-align:center;padding-top:150px;display:flex;flex-direction:column;align-items:center;gap:14px;padding-left:max(18px,env(safe-area-inset-left,0px));padding-right:max(18px,env(safe-area-inset-right,0px))}
+.hero .fondo{position:absolute;inset:0 0 auto;width:100%;height:330px;object-fit:cover;max-width:none;-webkit-mask-image:linear-gradient(#000 45%,transparent);mask-image:linear-gradient(#000 45%,transparent);z-index:0}
+.hero>*{position:relative;z-index:1}
+.hero .logo{width:190px;height:auto;filter:drop-shadow(0 8px 22px rgba(0,0,0,.7))}
+main{max-width:660px;margin:0 auto;padding-block:26px 64px;padding-left:max(18px,env(safe-area-inset-left,0px));padding-right:max(18px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:40px}
+h1,h2{font-family:var(--display);font-weight:400;text-wrap:balance;margin:0;text-transform:uppercase}
+h1{font-size:clamp(34px,9.6vw,66px);line-height:.98;transform:rotate(-2deg);filter:drop-shadow(0 3px 0 #a3126f) drop-shadow(0 6px 0 #170d45) drop-shadow(0 0 18px rgba(255,79,216,.5))}
+h1 span{display:block;background:linear-gradient(#fff3a0,var(--yellow) 45%,var(--orange));-webkit-background-clip:text;background-clip:text;color:transparent;padding-top:.12em}
+h1 span+span{background-image:linear-gradient(#e6fcff,var(--cyan) 50%,#3a7bff)}
+h2{font-size:27px;line-height:1.1;color:var(--cyan);text-shadow:0 3px 0 #170d45,0 0 16px rgba(53,230,255,.55);letter-spacing:.02em}
+p{margin:0}
+a{color:var(--yellow);font-weight:800}
+section{display:flex;flex-direction:column;gap:16px}
+.eyebrow{font:800 12.5px var(--body);letter-spacing:.14em;text-transform:uppercase;color:var(--yellow)}
+.lead{font-size:19.5px;line-height:1.45;max-width:34em}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:16px 18px;box-shadow:0 10px 30px rgba(0,0,0,.35)}
+.ia{border:2px solid transparent;background:linear-gradient(#17123f,#17123f) padding-box,linear-gradient(135deg,var(--pink),var(--cyan)) border-box;border-radius:22px;padding:20px;display:flex;flex-direction:column;gap:10px;box-shadow:0 0 34px rgba(255,79,216,.28)}
+.ia h2{color:var(--yellow);text-shadow:0 3px 0 #170d45,0 0 16px rgba(255,210,63,.5)}
+.ia strong{color:var(--cyan)}
+ol.steps,ul.rules{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:12px}
+ol.steps{counter-reset:s}
+ol.steps li{counter-increment:s;display:grid;grid-template-columns:46px 1fr;gap:14px;align-items:start}
+ol.steps li::before{content:counter(s);font:400 24px/1 var(--display);padding-top:5px;color:#231046;background:linear-gradient(#fff3a0,var(--yellow) 50%,var(--orange));width:46px;height:41px;border-radius:50%;display:grid;place-items:center;box-shadow:0 4px 0 #a3126f,0 0 18px rgba(255,210,63,.45)}
+ol.steps b,ul.rules b{display:block;font:800 18px/1.3 var(--body);color:#fff;margin-bottom:2px}
+ul.rules b{color:var(--yellow)}
+.acta{background:rgba(8,20,40,.8);border:2px dashed var(--cyan);border-radius:14px;padding:18px;font:600 14px/1.9 var(--mono);box-shadow:0 0 26px rgba(53,230,255,.22)}
+.acta div{display:flex;justify-content:space-between;gap:16px;border-bottom:1px dotted var(--line)}
+.acta div span:first-child{color:var(--muted);white-space:nowrap}
+.acta div span:last-child{text-align:right;min-width:0;overflow-wrap:anywhere}
+.acta .t{font:400 19px var(--display);color:var(--cyan);border:0;justify-content:center;letter-spacing:.04em;text-transform:uppercase}
+.note{font-size:14.5px;color:var(--muted)}
+details{border-bottom:1px solid var(--line);padding:13px 0}
+summary{font:800 17px var(--body);cursor:pointer;color:#fff}
+summary::marker{color:var(--pink)}
+summary:focus-visible{outline:2px solid var(--cyan);outline-offset:4px}
+details p{margin-top:8px;color:var(--muted)}
+footer{text-align:center;font:400 22px/1.3 var(--display);color:var(--yellow);text-shadow:0 3px 0 #170d45}
+footer small{display:block;font:800 14px var(--body);color:var(--muted);text-shadow:none;margin-top:6px}
+</style>
+<div class="hero">
+  <img class="fondo" src="fondo.jpg" alt="">
+  <img class="logo" src="logo.png" alt="¡Yo Le Entrooo!">
+  <span class="eyebrow">Reglas de transparencia · @YoLeEntrooo</span>
+  <h1><span>Cómo se decide</span><span>el ganador</span></h1>
+</div>
+<main>
+  <p class="lead">Nadie escoge al ganador. Lo decide un juego que arranca con un número público, se corre una sola vez y que tú puedes repetir desde tu celular.</p>
+
+  <section class="ia">
+    <h2>Configurado con inteligencia artificial</h2>
+    <p>Cada competencia la arma y la corre una inteligencia artificial (Claude, de Anthropic), no una persona.</p>
+    <p>El dueño de la cuenta le dio una <strong>regla estricta y permanente</strong>: todo resultado es completamente al azar y nadie puede acomodarlo, ni siquiera él. Si el dueño pidiera favorecer a un jugador, la IA tiene la orden de negarse y dejarlo anotado.</p>
+    <p>Y no tienes que creernos: con el <a href="verificador.html">verificador</a> lo compruebas tú.</p>
+  </section>
+
+  <section>
+    <h2>Paso a paso</h2>
+    <ol class="steps">
+      <li><div class="card"><b>Se sella el juego</b>Antes de publicar el video del lunes publicamos el sello del programa: un código que cambia por completo si alguien modifica una sola letra. Así se sabe que el juego no se tocó después de conocer a los jugadores.</div></li>
+      <li><div class="card"><b>Una hora para comentar</b>Desde que sale el video hay una hora para comentar un solo personaje. Quien comenta dos veces queda fuera. Los comentarios siguen ahí con su hora.</div></li>
+      <li><div class="card"><b>Se toma el número</b>Con la hora ya cerrada, a las 10:00 am del día siguiente se toma el total de seguidores de la cuenta, grabando la pantalla con el reloj a la vista. Ese número arranca el juego, y nadie puede saberlo antes de comentar.</div></li>
+      <li><div class="card"><b>Se sortean los jugadores</b>Con ese número, el programa sortea un jugador por personaje entre todos los que lo escogieron. Si el sorteado no cumple los requisitos, entra el siguiente del mismo sorteo.</div></li>
+      <li><div class="card"><b>Se corre una sola vez</b>El programa recibe el número y la lista de jugadores, y calcula los cuartos de final, la semifinal y la final. No hay segunda toma.</div></li>
+      <li><div class="card"><b>Tú la puedes repetir</b>En el <a href="verificador.html">verificador</a> escribes el número de la competencia y ves la misma carrera, con el mismo resultado, las veces que quieras.</div></li>
+      <li><div class="card"><b>Se paga y se enseña</b>El premio se transfiere o se envía al ganador, y se publica el comprobante con los datos personales tapados.</div></li>
+    </ol>
+  </section>
+
+  <section>
+    <h2>Las 7 reglas que no se rompen</h2>
+    <p>Son las instrucciones permanentes que el dueño de la cuenta le dio a la IA:</p>
+    <ul class="rules">
+      <li class="card"><b>1. El número no se escoge.</b>Sale del conteo público de seguidores. No se prueban otros números.</li>
+      <li class="card"><b>2. Una sola corrida.</b>Ni el sorteo de jugadores ni las pruebas se repiten porque el resultado no gustó o porque otra quedaría más emocionante.</li>
+      <li class="card"><b>3. El juego se congela antes de saber quién juega.</b>Después del sello no se cambia nada.</li>
+      <li class="card"><b>4. Todos los jugadores son idénticos.</b>Mismo tamaño, mismo peso, mismas reglas. Hasta el lugar de salida lo decide el número.</li>
+      <li class="card"><b>5. La edición no cambia el resultado.</b>La cámara, la música y los letreros solo cuentan lo que ya pasó.</li>
+      <li class="card"><b>6. Cada competencia deja un acta.</b>Con el número, los jugadores, el sello y el resultado de cada prueba.</li>
+      <li class="card"><b>7. Nadie puede pedir un favor.</b>Si alguien pide favorecer a un jugador, aunque sea el dueño de la cuenta, la respuesta es no.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Así se ve el acta</h2>
+    <div class="acta">
+      <div class="t"><span>Acta · Competencia 1 (ejemplo)</span></div>
+      <div><span>Número</span><span>3105</span></div>
+      <div><span>Tomado</span><span>10:00 am, con reloj en pantalla</span></div>
+      <div><span>Sello del juego</span><span>9f2c…a71e</span></div>
+      <div><span>Jugadores</span><span>10, sorteados con el número</span></div>
+      <div><span>Cuartos de final</span><span>pasan 6</span></div>
+      <div><span>Semifinal</span><span>pasan 3</span></div>
+      <div><span>Final</span><span>1 campeón</span></div>
+      <div><span>Corridas</span><span>1</span></div>
+    </div>
+    <p class="note">Si hay un error técnico, se corrige y se vuelve a correr con el mismo número. El cambio se anota en el acta y se avisa en el video.</p>
+  </section>
+
+  <section>
+    <h2>Preguntas rápidas</h2>
+    <div>
+      <details><summary>¿El dueño de la cuenta puede escoger al ganador?</summary><p>No. El resultado sale del número público y del juego sellado. No puede cambiar ninguno de los dos sin que se note: el número está grabado y el sello dejaría de coincidir.</p></details>
+      <details><summary>¿Por qué el número se toma después de la hora de comentarios?</summary><p>Para que nadie pueda calcular qué personaje le conviene antes de comentar. Cuando el número se conoce, ya nadie puede entrar ni cambiar su comentario.</p></details>
+      <details><summary>¿Qué es el sello?</summary><p>Es una huella del programa, como la huella de un dedo. Dos programas distintos nunca dan la misma. Se publica antes de la competencia y cualquiera puede compararla después.</p></details>
+      <details><summary>¿Y si no confío en el video?</summary><p>No hace falta confiar. Abre el verificador, pon el número de la competencia y mira la carrera correr en tu celular. Si no sale lo mismo que en el video, tienes la prueba en la mano.</p></details>
+      <details><summary>¿Las caídas y las salvadas favorecen a alguien?</summary><p>No. Todos empiezan con lo mismo, y quién se cae o se salva lo decide el mismo número que decide todo lo demás.</p></details>
+    </div>
+  </section>
+
+  <footer>Todos los lunes hay concurso nuevo<small>Sigue a @YoLeEntrooo</small></footer>
+</main>
+</body></html>
